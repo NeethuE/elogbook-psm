@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Student Log Entry</title></head>
+<body>
+<h2>Student Logbook Entry - PSM</h2>
+<form id="logForm">
+  Name: <input type="text" name="name"><br>
+  Roll Number: <input type="text" name="roll"><br>
+  Date: <input type="date" name="date"><br>
+  Location: <input type="text" name="location"><br>
+  Competency:
+  <select name="competency">
+    <option value="CM9.2">CM9.2 - Demographic indices</option>
+    <option value="CM3.7">CM3.7 - Vectors of public health importance</option>
+    <option value="CM6.2">CM6.2 - Statistical data analysis</option>
+  </select><br>
+  Activity:<br><textarea name="activity"></textarea><br>
+  Diagram Upload: <input type="file" name="diagram"><br>
+  <button type="submit">Submit</button>
+</form>
+<script src="firebase-config.js"></script>
+</body>
+</html>
