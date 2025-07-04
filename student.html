@@ -1,57 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Student Log Entry</title>
-  <script type="module" src="firebase-config.js"></script>
-</head>
+<head><title>Student Log Entry</title></head>
 <body>
-  <h2>Student Log Entry</h2>
-  <form id="logForm">
-    <input type="text" id="name" placeholder="Name" required><br>
-    <input type="text" id="roll" placeholder="Roll Number" required><br>
-    <input type="date" id="date" required><br>
-    <input type="text" id="location" placeholder="Location" required><br>
-    <select id="competency">
-      <option value="CM9.2">CM9.2 - Demographic indices</option>
-      <option value="CM3.7">CM3.7 - Vectors of public health importance</option>
-      <option value="CM6.2">CM6.2 - Statistical data analysis</option>
-    </select><br>
-    <textarea id="activity" placeholder="Describe activity" required></textarea><br>
-    <input type="file" id="diagram" accept="image/*"><br>
-    <button type="submit">Submit</button>
-  </form>
-
-  <script type="module">
-    import { db, storage } from './firebase-config.js';
-    import { collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
-    import { ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js';
-
-    const form = document.getElementById('logForm');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const roll = document.getElementById('roll').value;
-      const date = document.getElementById('date').value;
-      const location = document.getElementById('location').value;
-      const competency = document.getElementById('competency').value;
-      const activity = document.getElementById('activity').value;
-      const file = document.getElementById('diagram').files[0];
-
-      let diagramUrl = '';
-      if (file) {
-        const storageRef = ref(storage, 'diagrams/' + file.name);
-        await uploadBytes(storageRef, file);
-        diagramUrl = await getDownloadURL(storageRef);
-      }
-
-      await addDoc(collection(db, 'logbookEntries'), {
-        name, roll, date, location, competency, activity, diagramUrl,
-        timestamp: serverTimestamp()
-      });
-
-      alert('Entry submitted!');
-      form.reset();
-    });
-  </script>
+<h2>Student Logbook Entry - PSM</h2>
+<form id="logForm">
+  Name: <input type="text" name="name"><br>
+  Roll Number: <input type="text" name="roll"><br>
+  Date: <input type="date" name="date"><br>
+  Location: <input type="text" name="location"><br>
+  Competency:
+  <select name="competency">
+    <option value="CM9.2">CM9.2 - Demographic indices</option>
+    <option value="CM3.7">CM3.7 - Vectors of public health importance</option>
+    <option value="CM6.2">CM6.2 - Statistical data analysis</option>
+  </select><br>
+  Activity:<br><textarea name="activity"></textarea><br>
+  Diagram Upload: <input type="file" name="diagram"><br>
+  <button type="submit">Submit</button>
+</form>
+<script src="firebase-config.js"></script>
 </body>
 </html>
